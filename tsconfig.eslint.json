@@ -1,5 +1,5 @@
 {
-    "include": ["./"],
+    "include": ["src", "eslint.config.js", "esbuild.config.ts"],
     "extends": "./tsconfig.json",
     "exclude": ["node_modules", "dist"]
 }

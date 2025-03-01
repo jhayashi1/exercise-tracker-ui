@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {ThemeProvider} from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Routes} from 'react-router-dom';
 import {routes} from './routes';
 import {theme} from './theme';
 import {Box, Container, Paper} from '@mui/material';

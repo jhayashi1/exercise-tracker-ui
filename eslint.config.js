@@ -112,6 +112,8 @@ export default [{
             __dirname    : true,
             process      : true,
             fetch        : true,
+            document     : true,
+            window       : true,
         },
     },
     rules: {
