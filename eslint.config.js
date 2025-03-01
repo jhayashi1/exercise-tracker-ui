@@ -111,11 +111,13 @@ export default [{
             console      : true,
             __dirname    : true,
             process      : true,
+            fetch        : true,
         },
     },
     rules: {
         ...commonRules,
         ...typescriptRules,
+        ...reactRules,
     },
     ignores: ['dist/**'],
 }];
