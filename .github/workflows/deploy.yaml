@@ -41,11 +41,11 @@ jobs:
         with:
             name: frontend
             path: dist/
-      - name: upload lambda artifact
-        uses: actions/upload-artifact@v4
-        with:
-            name: lambda
-            path: lambda.zip
+    #   - name: upload lambda artifact
+    #     uses: actions/upload-artifact@v4
+    #     with:
+    #         name: lambda
+    #         path: lambda.zip
   terraform-plan:
     needs: build
     runs-on: ubuntu-latest
