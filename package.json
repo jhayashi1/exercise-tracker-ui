@@ -27,7 +27,7 @@
     "@emotion/react": "11.13.0",
     "@emotion/styled": "11.14.0",
     "@mui/icons-material": "5.16.14",
-    "@mui/material": "5.16.6",
+    "@mui/material": "5.16.14",
     "jszip": "3.10.1",
     "oidc-client-ts": "^3.1.0",
     "react": "17.0.0 || 18.0.0",
