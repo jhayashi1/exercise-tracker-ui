@@ -29,8 +29,10 @@
     "@mui/icons-material": "5.16.6",
     "@mui/material": "5.16.6",
     "jszip": "3.10.1",
+    "oidc-client-ts": "^3.1.0",
     "react": "17.0.0 || 18.0.0",
     "react-dom": "17.0.0 || 18.0.0",
+    "react-oidc-context": "^3.2.0",
     "react-router-dom": "6.26.0"
   },
   "homepage": "https://github.com/jhayashi1/portfolio-v2-ui#readme",
