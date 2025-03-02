@@ -1,8 +1,9 @@
 import {createTheme} from '@mui/material';
 
-const primaryColor = '#121212';
-const secondaryColor = '#181818';
+const primaryColor = '#181818';
+const secondaryColor = '#1b232d';
 const tertiaryColor = '#282828';
+export const DRAWER_WIDTH = '15vw';
 
 const createColorOverride = (color: string): object => ({
     styleOverrides: {
@@ -32,6 +33,19 @@ export const theme = createTheme({
         },
     },
     components: {
+        MuiDrawer: {
+            styleOverrides: {
+                root: {
+                    width               : DRAWER_WIDTH,
+                    flexShrink          : 0,
+                    '& .MuiDrawer-paper': {
+                        width          : DRAWER_WIDTH,
+                        boxSizing      : 'border-box',
+                        backgroundColor: `${secondaryColor}`,
+                    },
+                },
+            },
+        },
         // MuiDivider: createColorOverride('#303030'),
         // MuiCard   : {
         //     styleOverrides: {
@@ -41,20 +55,22 @@ export const theme = createTheme({
         //         },
         //     },
         // },
-        // MuiTypography: {
-        //     styleOverrides: {
-        //         //@ts-ignore
-        //         root: {
-        //             fontWeight: 'normal',
-        //             whiteSpace: 'pre-wrap',
-        //             fontSize  : {
-        //                 xs: '1rem',
-        //                 md: '1.25rem',
-        //                 lg: '1.5rem',
-        //             },
-        //         },
-        //     },
-        // },
+        MuiTypography: {
+            styleOverrides: {
+                //@ts-ignore
+                root: {
+                    fontWeight  : 'normal',
+                    whiteSpace  : 'pre-wrap',
+                    wordWrap    : 'break-word',
+                    overflowWrap: 'break-word',
+                    fontSize    : {
+                        xs: '1rem',
+                        md: '1.25rem',
+                        lg: '1.5rem',
+                    },
+                },
+            },
+        },
     },
     typography: {
         fontFamily: 'Mulish',
