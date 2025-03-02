@@ -1,3 +1,21 @@
+import type {AuthContextProps} from 'react-oidc-context';
+
+export type CognitoAuthProps = AuthContextProps & {
+    user?: {
+        profile: {
+            aud: string;
+            'cognito:username': string;
+            event_id: string;
+            exp: number;
+            iat: number;
+            iss: string;
+            origin_jti: string;
+            sub: string;
+            token_user: string;
+        }
+    }
+}
+
 export interface SessionMetadata {
     username: string;
     guid: string;

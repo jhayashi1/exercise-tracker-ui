@@ -1,4 +1,4 @@
-import {AppBar, Box, Button, Container, Drawer, Toolbar, Typography} from '@mui/material';
+import {Box, Button, Container, Drawer, Toolbar, Typography} from '@mui/material';
 import type {FC} from 'react';
 import {Link} from 'react-router-dom';
 import {pages} from '../constants';
