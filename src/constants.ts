@@ -1,3 +1,4 @@
 export const pages: Record<string, string> = {
-    Home: '/',
+    Home   : '/',
+    Friends: '/friends',
 };

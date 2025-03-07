@@ -10,7 +10,7 @@ export const SideNav: FC = () => {
             anchor="left"
             variant="permanent"
         >
-            <Container maxWidth='xl' sx={{height: '100%'}}>
+            <Container sx={{height: '100%'}}>
                 <Toolbar />
                 <Box sx={{overflow: 'auto'}}>
                     {Object.keys(pages).map((page) => (

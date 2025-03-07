@@ -49,3 +49,32 @@ export interface StopSessionResp {
         stopTimestamp: string;
     };
 }
+
+export interface FriendMetadata {
+    username: string;
+    friendUsername: string;
+    createdTimestamp: string;
+}
+
+export type FriendRequestStatus = 'pending' | 'accepted' | 'declined';
+
+export interface FriendRequestMetadata {
+    username: string;
+    guid: string;
+    friendUsername: string;
+    status: FriendRequestStatus;
+    createdTimestamp: string;
+    updatedTimestamp?: string;
+}
+
+export interface FriendRequestBody {
+    friendUsername: string;
+}
+
+export interface FriendRequestResp {
+    request: FriendRequestMetadata;
+}
+
+export interface ListFriendsResp {
+    friends: string[];
+}

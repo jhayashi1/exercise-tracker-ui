@@ -2,7 +2,7 @@ import {createTheme} from '@mui/material';
 
 const primaryColor = '#181818';
 const secondaryColor = '#1b232d';
-const tertiaryColor = '#282828';
+const tertiaryColor = '#303030';
 export const DRAWER_WIDTH = '15vw';
 
 const createColorOverride = (color: string): object => ({
@@ -46,15 +46,14 @@ export const theme = createTheme({
                 },
             },
         },
-        // MuiDivider: createColorOverride('#303030'),
-        // MuiCard   : {
-        //     styleOverrides: {
-        //         root: {
-        //             backgroundColor: secondaryColor,
-        //             borderColor    : tertiaryColor,
-        //         },
-        //     },
-        // },
+        MuiDivider: createColorOverride('#303030'),
+        MuiCard   : {
+            styleOverrides: {
+                root: {
+                    borderColor: tertiaryColor,
+                },
+            },
+        },
         MuiTypography: {
             styleOverrides: {
                 //@ts-ignore
@@ -69,6 +68,11 @@ export const theme = createTheme({
                         lg: '1.5rem',
                     },
                 },
+            },
+        },
+        MuiContainer: {
+            defaultProps: {
+                maxWidth: 'xl',
             },
         },
     },

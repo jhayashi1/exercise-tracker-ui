@@ -1,6 +1,7 @@
 export interface CallParams {
     params?: RequestInit;
     headers?: Record<string, any>;
+    body?: RequestInit['body']
 }
 
 export const call = async (url: string, auth: string, p?: CallParams): Promise<Response> => {

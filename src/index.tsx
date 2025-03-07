@@ -27,7 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                     <Paper sx={{borderRadius: 0, flex: 1, minHeight: '100vh', ml: DRAWER_WIDTH}}>
                         <Box sx={{pt: '6rem', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
                             <SideNav />
-                            <Container maxWidth='xl'>
+                            <Container>
                                 <Routes>
                                     {routes}
                                 </Routes>

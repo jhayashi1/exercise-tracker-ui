@@ -67,7 +67,8 @@ export const ChartWithDateFilter: FC<ChartWithDateFilterProps> = ({data}) => {
                                 color: '#FFFFFF',
                             },
                             ticks: {
-                                color: 'white',
+                                stepSize: 1,
+                                color   : 'white',
                             },
                         },
                         x: {

@@ -5,6 +5,7 @@ import {listSessions, startSession, stopSession} from '../https/session';
 import {useAsyncEffect} from '../helpers/use-async-effect';
 import type {CognitoAuthProps} from '../https/types';
 import {ChartWithDateFilter} from '../components/BarChart';
+import {requestFriend} from '../https/friend';
 
 export const Home: FC = () => {
     const auth = useAuth() as CognitoAuthProps;
@@ -90,6 +91,7 @@ export const Home: FC = () => {
             <button onClick={async () => await startSession(token)}>Start Session</button>
             <button onClick={async () => await stopSession(token)}>Stop Session</button>
             <ChartWithDateFilter data={data.list}></ChartWithDateFilter>
+            <button onClick={async () => await requestFriend('jhayashi', token)}>Request Friend</button>
         </div>
     );
 };
