@@ -4,7 +4,6 @@ import {Bar} from 'react-chartjs-2';
 import {Button, Container, Typography} from '@mui/material';
 import type {SessionMetadata} from '../https/types';
 import {Chart, registerables} from 'chart.js';
-import {HoverButton} from './HoverButton';
 Chart.register(...registerables);
 
 export const ChartWithDateFilter: FC<ChartWithDateFilterProps> = ({data}) => {
@@ -55,9 +54,6 @@ export const ChartWithDateFilter: FC<ChartWithDateFilterProps> = ({data}) => {
 
     return (
         <Container>
-            <HoverButton buttonProps={{onClick: () => setRange(3)}} text={'Last 3 Days'} />
-            <HoverButton buttonProps={{onClick: () => setRange(7)}} text={'Last 7 Days'} />
-            <HoverButton buttonProps={{onClick: () => setRange(10)}} text={'Last 10 Days'} />
             <Bar
                 data={chartData}
                 options={{

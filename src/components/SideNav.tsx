@@ -1,35 +1,43 @@
-import {Box, Button, Container, Drawer, Toolbar, Typography} from '@mui/material';
+import {Box, Button, Container, Drawer, Typography} from '@mui/material';
 import type {FC} from 'react';
-import {Link} from 'react-router-dom';
 import {pages} from '../constants';
-import {signOutRedirect} from '../https/sign-out';
+import {Link} from 'react-router-dom';
+
+export const DRAWER_WIDTH = '15vw';
+const SIDE_NAV_COLOR = '#1b232d';
+const SIDE_NAV_COLOR_LIGHT = '#232e3b';
 
 export const SideNav: FC = () => {
     return (
         <Drawer
             anchor="left"
+            sx={{
+                width               : DRAWER_WIDTH,
+                flexShrink          : 0,
+                '& .MuiDrawer-paper': {
+                    width          : DRAWER_WIDTH,
+                    boxSizing      : 'border-box',
+                    backgroundColor: `${SIDE_NAV_COLOR}`,
+                },
+            }}
             variant="permanent"
         >
             <Container sx={{height: '100%'}}>
-                <Toolbar />
-                <Box sx={{overflow: 'auto'}}>
+                <Box sx={{overflow: 'auto', mt: '2rem'}}>
                     {Object.keys(pages).map((page) => (
                         <Button
                             disableRipple
                             component={Link}
-                            key={page}
+                            key= {page}
                             sx={{
-                                display       : 'flex',
-                                p             : '0.5rem',
-                                color         : 'inherit',
-                                justifyContent: 'center',
-                                alignItems    : 'center',
-                                transition    : 'color 0.2s ease-in-out',
-                                '&:hover'     : {
-                                    color: 'deepskyblue',
+                                backgroundColor: 'transparent',
+                                display        : 'flex',
+                                mt             : '2rem',
+                                '&:hover'      : {
+                                    backgroundColor: SIDE_NAV_COLOR_LIGHT,
                                 },
                             }}
-                            to={pages[page]}
+                            to = {pages[page]}
                         >
                             <Typography
                                 noWrap
@@ -40,33 +48,6 @@ export const SideNav: FC = () => {
                             </Typography>
                         </Button>
                     ))}
-
-                    <Button
-                        disableRipple
-                        key={'sign out'}
-                        sx={{
-                            display       : 'flex',
-                            width         : '100%',
-                            p             : '0.5rem',
-                            color         : 'inherit',
-                            justifyContent: 'center',
-                            textAlign     : 'center',
-                            alignItems    : 'center',
-                            transition    : 'color 0.2s ease-in-out',
-                            '&:hover'     : {
-                                color: 'deepskyblue',
-                            },
-                        }}
-                        onClick={signOutRedirect}
-                    >
-                        <Typography
-                            noWrap
-                            sx={{fontWeight: 'semibold', textTransform: 'none'}}
-                            variant="h6"
-                        >
-                            {'Sign out'}
-                        </Typography>
-                    </Button>
                 </Box>
             </Container>
         </Drawer>

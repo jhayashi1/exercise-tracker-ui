@@ -23,7 +23,6 @@ export const Friends: FC = () => {
         >
             {friends.map((friend) => (
                 <Card
-                    raised
                     key={friend}
                     sx={{
                         height        : '100%',
@@ -57,18 +56,12 @@ export const Friends: FC = () => {
                             sm={4}
                             xs={4}
                         >
-                            <Button
-                                disableRipple
-                                sx={{
-                                    p              : '0.5rem',
-                                    color          : 'inherit',
-                                    backgroundColor: '',
-                                    justifyContent : 'center',
-                                    alignItems     : 'center',
-                                }}
-                                variant='contained'
-                            >
-                                button
+                            <Button variant='outlined'>
+                                <Typography
+                                    variant='body2'
+                                >
+                                    {friend}
+                                </Typography>
                             </Button>
                         </Grid>
                     </Grid>
