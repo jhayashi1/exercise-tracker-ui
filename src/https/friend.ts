@@ -1,8 +1,8 @@
 import {call} from './call';
 import {BASE_API_URL} from './constants';
-import type {FriendRequestResp, ListFriendsResp} from './types';
+import type {FriendRemoveResp, FriendRequestResp, ListFriendsResp} from './types';
 
-export const requestFriend = async (username: string, auth: string): Promise<FriendRequestResp> => {
+export const requestFriend = async (username: string, auth: string): Promise<Response> => {
     const resp = await call(`${BASE_API_URL}/friend/request`,
         auth,
         {
@@ -16,7 +16,7 @@ export const requestFriend = async (username: string, auth: string): Promise<Fri
         }
     );
 
-    return await resp.json() as FriendRequestResp;
+    return resp;
 };
 
 export const listFriends = async (username: string, auth: string): Promise<ListFriendsResp> => {
@@ -30,4 +30,21 @@ export const listFriends = async (username: string, auth: string): Promise<ListF
     );
 
     return await resp.json() as ListFriendsResp;
+};
+
+export const removeFriend = async (username: string, auth: string): Promise<FriendRemoveResp> => {
+    const resp = await call(`${BASE_API_URL}/friend/remove`,
+        auth,
+        {
+            params: {
+                method: 'POST',
+                body  : JSON.stringify({friendUsername: username}),
+            },
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+    );
+
+    return await resp.json() as FriendRemoveResp;
 };

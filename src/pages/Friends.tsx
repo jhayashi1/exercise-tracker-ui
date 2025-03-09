@@ -1,26 +1,72 @@
 import {useState, type FC} from 'react';
 import type {CognitoAuthProps} from '../https/types';
 import {useAuth} from 'react-oidc-context';
-import {Button, Card, Container, Grid, Typography} from '@mui/material';
+import {Button, Card, Container, Grid, TextField, Typography} from '@mui/material';
 import {useAsyncEffect} from '../helpers/use-async-effect';
-import {listFriends} from '../https/friend';
+import {listFriends, removeFriend, requestFriend} from '../https/friend';
 
 export const Friends: FC = () => {
     const auth = useAuth() as CognitoAuthProps;
     const token = auth.user?.access_token ?? '';
-    const username = auth.user?.profile['cognito:username'] ?? '';
     const [friends, setFriends] = useState<string[]>([]);
+    const [addFriendField, setAddFriendField] = useState<string>('');
 
     useAsyncEffect(async () => {
         // const response = await listFriends(username, token);
         setFriends(['jhayashi', 'friend']);
     }, []);
 
+    const handleAddFriend = async (): Promise<void> => {
+        if (addFriendField.trim()) {
+            const response = await requestFriend(addFriendField, token);
+            if (response.ok) {
+                setAddFriendField('');
+                // TODO: toast for adding friend
+            }
+        }
+    };
+
     return (
         <Container
             maxWidth='lg'
             sx={{mt: '3rem'}}
         >
+            <Grid
+                container
+                alignItems='center'
+                spacing={2}
+            >
+                <Grid item xs={10}>
+                    <TextField
+                        fullWidth
+                        label='Add a friend'
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset'            : {borderColor: '#303030'},
+                                '&:hover fieldset'      : {borderColor: 'white'},
+                                '&.Mui-focused fieldset': {borderColor: 'white'},
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: 'white',
+                            },
+                        }}
+                        value={addFriendField}
+                        variant='outlined'
+                        onChange={(e) => setAddFriendField(e.target.value)}
+                    />
+                </Grid>
+                <Grid item xs={2}>
+                    <Button
+                        fullWidth
+                        variant='outlined'
+                        onClick={handleAddFriend}
+                    >
+                        <Typography sx={{textTransform: 'none'}} variant='body2'>
+                            {'Add friend'}
+                        </Typography>
+                    </Button>
+                </Grid>
+            </Grid>
             {friends.map((friend) => (
                 <Card
                     key={friend}
@@ -41,11 +87,11 @@ export const Friends: FC = () => {
                     >
                         <Grid
                             item
-                            sm={8}
-                            xs={8}
+                            sm={11}
+                            xs={11}
                         >
                             <Typography
-                                sx={{ml: '1rem', fontWeight: 'semibold'}}
+                                sx={{pl: '1rem', fontWeight: 'semibold'}}
                                 variant='h5'
                             >
                                 {friend}
@@ -53,14 +99,16 @@ export const Friends: FC = () => {
                         </Grid>
                         <Grid
                             item
-                            sm={4}
-                            xs={4}
+                            sm={1}
+                            xs={1}
                         >
-                            <Button variant='outlined'>
-                                <Typography
-                                    variant='body2'
-                                >
-                                    {friend}
+                            <Button
+                                sx={{mr: '2rem'}}
+                                variant='outlined'
+                                onClick={async () => await removeFriend(friend, token)}
+                            >
+                                <Typography sx={{textTransform: 'none'}} variant='body2'>
+                                    {'Remove'}
                                 </Typography>
                             </Button>
                         </Grid>

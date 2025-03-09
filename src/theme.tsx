@@ -78,6 +78,33 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiTextField: {
+            defaultProps: {
+                InputProps: {
+                    sx: {
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': {
+                                borderColor: 'secondary.main', // Change the border color
+                            },
+                            '&:hover fieldset': {
+                                borderColor: 'pink', // Change the border color on hover
+                            },
+                            '&.Mui-focused fieldset': {
+                                borderColor: 'secondary.dark', // Change the border color when focused
+                            },
+                        },
+                    },
+                },
+                InputLabelProps: {
+                    sx: {
+                        color          : 'secondary.main', // Change the label color
+                        '&.Mui-focused': {
+                            color: 'secondary.dark', // Change the label color when focused
+                        },
+                    },
+                },
+            },
+        },
     },
     typography: {
         fontFamily: 'Mulish',

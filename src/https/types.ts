@@ -78,3 +78,8 @@ export interface FriendRequestResp {
 export interface ListFriendsResp {
     friends: string[];
 }
+
+export interface FriendRemoveResp {
+    username: string;
+    friendUsername: string;
+}
