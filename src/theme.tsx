@@ -1,7 +1,7 @@
 import {createTheme} from '@mui/material';
 const primaryColor = '#181818';
 const secondaryColor = '#363636';
-const tertiaryColor = '#363636';
+const tertiaryColor = '#404040';
 const tertiaryColorLight = '#404040';
 export const DRAWER_WIDTH = '15vw';
 

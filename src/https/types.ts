@@ -57,6 +57,7 @@ export interface FriendMetadata {
 }
 
 export type FriendRequestStatus = 'pending' | 'accepted' | 'declined';
+export type FriendRequestAction = Omit<FriendRequestStatus, 'pending'>;
 
 export interface FriendRequestMetadata {
     username: string;

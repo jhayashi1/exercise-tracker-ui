@@ -54,66 +54,78 @@ export const Friends: FC = () => {
             maxWidth='lg'
             sx={{mt: '3rem'}}
         >
-            {pendingRequests.length && pendingRequests.map((request) => (
+            {pendingRequests.length && (
                 <>
-                    <Typography variant='h5'>
+                    <Typography variant='h4'>
                         {'Pending Requests'}
                     </Typography>
-                    <Card
-                        key={request.guid}
-                        sx={{
-                            height        : '100%',
-                            my            : '2rem',
-                            textDecoration: 'none',
-                            color         : 'inherit',
-                            display       : 'block',
-                        }}
-                        variant='outlined'
-                    >
-                        <Grid2
-                            container
-                            alignItems='center'
-                            direction='row'
-                            sx={{my: '1rem'}}
-                        >
-                            <Grid2
-                                size={10}
+                    {pendingRequests.map(({guid, username}) => (
+                        <div key={guid}>
+                            <Card
+                                sx={{
+                                    height        : '100%',
+                                    my            : '2rem',
+                                    textDecoration: 'none',
+                                    color         : 'inherit',
+                                    display       : 'block',
+                                }}
+                                variant='outlined'
                             >
-                                <Typography
-                                    sx={{pl: '1rem', fontWeight: 'semibold'}}
-                                    variant='h5'
+                                <Grid2
+                                    container
+                                    alignItems='center'
+                                    direction='row'
+                                    sx={{my: '1rem'}}
                                 >
-                                    {request.username}
-                                </Typography>
-                            </Grid2>
-                            <Grid2 size={1}>
-                                <Button
-                                    sx={{mr: '2rem'}}
-                                    variant='outlined'
-                                    onClick={async () => await handleRequestAction(request.guid, 'accepted')}
-                                >
-                                    <Typography sx={{textTransform: 'none'}} variant='body2'>
-                                        {'Accept'}
-                                    </Typography>
-                                </Button>
-                            </Grid2>
-                            <Grid2 size={1}>
-                                <Button
-                                    sx={{mr: '2rem'}}
-                                    variant='outlined'
-                                    onClick={async () => await handleRequestAction(request.guid, 'declined')}
-                                >
-                                    <Typography sx={{textTransform: 'none'}} variant='body2'>
-                                        {'Decline'}
-                                    </Typography>
-                                </Button>
-                            </Grid2>
-                        </Grid2>
-                    </Card>
-                    <Divider sx={{mt: '2rem'}}></Divider>
-                </>
+                                    <Grid2
+                                        size={10}
+                                    >
+                                        <Typography
+                                            sx={{pl: '1rem', fontWeight: 'semibold'}}
+                                            variant='h5'
+                                        >
+                                            {username}
+                                        </Typography>
+                                    </Grid2>
+                                    <Grid2 size={1}>
+                                        <Button
 
-            ))}
+                                            sx={{mr: '2rem'}}
+                                            variant='outlined'
+                                            onClick={async () => await handleRequestAction(guid, 'accepted')}
+                                        >
+                                            <Typography
+
+                                                sx={{textTransform: 'none'}}
+                                                variant='body2'
+                                            >
+                                                {'Accept'}
+                                            </Typography>
+                                        </Button>
+                                    </Grid2>
+                                    <Grid2 size={1}>
+                                        <Button
+
+                                            sx={{mr: '2rem'}}
+                                            variant='outlined'
+                                            onClick={async () => await handleRequestAction(guid, 'declined')}
+                                        >
+                                            <Typography
+
+                                                sx={{textTransform: 'none'}}
+                                                variant='body2'
+                                            >
+                                                {'Decline'}
+                                            </Typography>
+                                        </Button>
+                                    </Grid2>
+                                </Grid2>
+                            </Card>
+                            <Divider sx={{mt: '2rem'}}></Divider>
+                        </div>
+                    ))}
+                </>
+            )}
             <Grid2
                 container
                 alignItems='center'
