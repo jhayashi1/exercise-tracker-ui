@@ -79,6 +79,10 @@ export interface ListFriendsResp {
     friends: string[];
 }
 
+export interface ListFriendRequestsResp {
+    requests: FriendRequestMetadata[];
+}
+
 export interface FriendRemoveResp {
     username: string;
     friendUsername: string;

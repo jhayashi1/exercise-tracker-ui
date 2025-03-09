@@ -96,11 +96,9 @@ export default [{
     languageOptions: {
         parser,
         parserOptions: {
-            ecmaFeatures   : {modules: true},
-            ecmaVersion    : 'latest',
-            sourceType     : 'module',
-            project        : 'tsconfig.eslint.json',
-            tsconfigRootDir: './',
+            ecmaFeatures: {modules: true},
+            ecmaVersion : 'latest',
+            project     : './tsconfig.json',
         },
         ecmaVersion: 12,
         globals    : {

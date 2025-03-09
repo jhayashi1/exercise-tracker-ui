@@ -1,18 +1,9 @@
-import {BorderColor} from '@mui/icons-material';
 import {createTheme} from '@mui/material';
 const primaryColor = '#181818';
-const secondaryColor = '#303030';
+const secondaryColor = '#363636';
 const tertiaryColor = '#363636';
 const tertiaryColorLight = '#404040';
 export const DRAWER_WIDTH = '15vw';
-
-const createColorOverride = (color: string): object => ({
-    styleOverrides: {
-        root: {
-            backgroundColor: color,
-        },
-    },
-});
 
 export const theme = createTheme({
     palette: {
@@ -34,8 +25,14 @@ export const theme = createTheme({
         },
     },
     components: {
-        MuiDivider: createColorOverride('#303030'),
-        MuiCard   : {
+        MuiDivider: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: secondaryColor,
+                },
+            },
+        },
+        MuiCard: {
             styleOverrides: {
                 root: {
                     borderColor: tertiaryColor,

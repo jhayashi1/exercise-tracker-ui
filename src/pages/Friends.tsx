@@ -1,19 +1,37 @@
 import {useState, type FC} from 'react';
-import type {CognitoAuthProps} from '../https/types';
+import type {CognitoAuthProps, FriendRequestAction, FriendRequestMetadata, FriendRequestStatus} from '../https/types';
 import {useAuth} from 'react-oidc-context';
-import {Button, Card, Container, Divider, Grid, TextField, Typography} from '@mui/material';
+import {Button, Card, Container, Divider, Grid2, TextField, Typography} from '@mui/material';
 import {useAsyncEffect} from '../helpers/use-async-effect';
-import {listFriends, removeFriend, requestFriend} from '../https/friend';
+import {friendRequestAction, listFriendRequests, listFriends, removeFriend, requestFriend} from '../https/friend';
 
 export const Friends: FC = () => {
     const auth = useAuth() as CognitoAuthProps;
     const token = auth.user?.access_token ?? '';
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [pendingRequests, setPendingRequests] = useState<FriendRequestMetadata[]>([]);
     const [friends, setFriends] = useState<string[]>([]);
     const [addFriendField, setAddFriendField] = useState<string>('');
 
     useAsyncEffect(async () => {
+        if (!isLoading) {
+            return;
+        }
+        setIsLoading(false);
+
         // const response = await listFriends(username, token);
+        // const {requests} = await listFriendRequests(token);
+        const requests = [
+            {
+                friendUsername  : 'test1',
+                username        : 'test',
+                guid            : '8a600c5d-8b02-4143-8e49-02fdf564cf02',
+                createdTimestamp: '2025-03-09T19:39:53.787Z',
+                status          : 'pending' as FriendRequestStatus,
+            },
+        ];
         setFriends(['jhayashi', 'friend']);
+        setPendingRequests(requests);
     }, []);
 
     const handleAddFriend = async (): Promise<void> => {
@@ -26,17 +44,83 @@ export const Friends: FC = () => {
         }
     };
 
+    const handleRequestAction = async (guid: string, action: FriendRequestAction): Promise<void> => {
+        await friendRequestAction(guid, action, token);
+        // TODO: toast for action and reload
+    };
+
     return (
         <Container
             maxWidth='lg'
             sx={{mt: '3rem'}}
         >
-            <Grid
+            {pendingRequests.length && pendingRequests.map((request) => (
+                <>
+                    <Typography variant='h5'>
+                        {'Pending Requests'}
+                    </Typography>
+                    <Card
+                        key={request.guid}
+                        sx={{
+                            height        : '100%',
+                            my            : '2rem',
+                            textDecoration: 'none',
+                            color         : 'inherit',
+                            display       : 'block',
+                        }}
+                        variant='outlined'
+                    >
+                        <Grid2
+                            container
+                            alignItems='center'
+                            direction='row'
+                            sx={{my: '1rem'}}
+                        >
+                            <Grid2
+                                size={10}
+                            >
+                                <Typography
+                                    sx={{pl: '1rem', fontWeight: 'semibold'}}
+                                    variant='h5'
+                                >
+                                    {request.username}
+                                </Typography>
+                            </Grid2>
+                            <Grid2 size={1}>
+                                <Button
+                                    sx={{mr: '2rem'}}
+                                    variant='outlined'
+                                    onClick={async () => await handleRequestAction(request.guid, 'accepted')}
+                                >
+                                    <Typography sx={{textTransform: 'none'}} variant='body2'>
+                                        {'Accept'}
+                                    </Typography>
+                                </Button>
+                            </Grid2>
+                            <Grid2 size={1}>
+                                <Button
+                                    sx={{mr: '2rem'}}
+                                    variant='outlined'
+                                    onClick={async () => await handleRequestAction(request.guid, 'declined')}
+                                >
+                                    <Typography sx={{textTransform: 'none'}} variant='body2'>
+                                        {'Decline'}
+                                    </Typography>
+                                </Button>
+                            </Grid2>
+                        </Grid2>
+                    </Card>
+                    <Divider sx={{mt: '2rem'}}></Divider>
+                </>
+
+            ))}
+            <Grid2
                 container
                 alignItems='center'
                 spacing={2}
+                sx={{mt: '2rem'}}
             >
-                <Grid item xs={10}>
+                <Grid2 size={10}>
                     <TextField
                         fullWidth
                         label='Add a friend'
@@ -44,8 +128,8 @@ export const Friends: FC = () => {
                         variant='outlined'
                         onChange={(e) => setAddFriendField(e.target.value)}
                     />
-                </Grid>
-                <Grid item xs={2}>
+                </Grid2>
+                <Grid2 size={2}>
                     <Button
                         fullWidth
                         // disabled={!addFriendField}
@@ -56,8 +140,10 @@ export const Friends: FC = () => {
                             {'Add friend'}
                         </Typography>
                     </Button>
-                </Grid>
-            </Grid>
+                </Grid2>
+            </Grid2>
+
+            <Divider sx={{mt: '2rem'}}></Divider>
             {friends.map((friend) => (
                 <Card
                     key={friend}
@@ -70,16 +156,14 @@ export const Friends: FC = () => {
                     }}
                     variant='outlined'
                 >
-                    <Grid
+                    <Grid2
                         container
                         alignItems='center'
                         direction='row'
                         sx={{my: '1rem'}}
                     >
-                        <Grid
-                            item
-                            sm={11}
-                            xs={11}
+                        <Grid2
+                            size={11}
                         >
                             <Typography
                                 sx={{pl: '1rem', fontWeight: 'semibold'}}
@@ -87,11 +171,9 @@ export const Friends: FC = () => {
                             >
                                 {friend}
                             </Typography>
-                        </Grid>
-                        <Grid
-                            item
-                            sm={1}
-                            xs={1}
+                        </Grid2>
+                        <Grid2
+                            size={1}
                         >
                             <Button
                                 sx={{mr: '2rem'}}
@@ -102,8 +184,8 @@ export const Friends: FC = () => {
                                     {'Remove'}
                                 </Typography>
                             </Button>
-                        </Grid>
-                    </Grid>
+                        </Grid2>
+                    </Grid2>
                 </Card>
             ))}
         </Container>
