@@ -1,6 +1,7 @@
 node_modules
 dist
 *.zip
+.vscode
 
 **/.terraform/*
 *.terraform.lock.hcl

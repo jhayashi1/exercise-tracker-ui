@@ -1,9 +1,9 @@
+import {BorderColor} from '@mui/icons-material';
 import {createTheme} from '@mui/material';
-
 const primaryColor = '#181818';
-const secondaryColor = '#262626';
-const tertiaryColor = '#303030';
-const tertiaryColorLight = '#323232';
+const secondaryColor = '#303030';
+const tertiaryColor = '#363636';
+const tertiaryColorLight = '#404040';
 export const DRAWER_WIDTH = '15vw';
 
 const createColorOverride = (color: string): object => ({
@@ -64,17 +64,28 @@ export const theme = createTheme({
             },
         },
         MuiButton: {
+            defaultProps: {
+                disableRipple: true,
+            },
             styleOverrides: {
                 root: {
-                    color          : 'inherit',
-                    backgroundColor: secondaryColor,
-                    borderColor    : tertiaryColor,
-                    '&:hover'      : {
-                        backgroundColor: tertiaryColor,
-                    },
-                    justifyContent: 'center',
-                    alignItems    : 'center',
-                    p             : '0.5rem',
+                    color   : 'white',
+                    variants: [
+                        {
+                            props: {variant: 'outlined'},
+                            style: {
+                                backgroundColor: secondaryColor,
+                                borderColor    : tertiaryColor,
+                                '&:hover'      : {
+                                    backgroundColor: tertiaryColor,
+                                    BorderColor    : tertiaryColorLight,
+                                },
+                                justifyContent: 'center',
+                                alignItems    : 'center',
+                                p             : '0.5rem',
+                            },
+                        },
+                    ],
                 },
             },
         },
@@ -82,24 +93,15 @@ export const theme = createTheme({
             defaultProps: {
                 InputProps: {
                     sx: {
-                        '& .MuiOutlinedInput-root': {
-                            '& fieldset': {
-                                borderColor: 'secondary.main', // Change the border color
-                            },
-                            '&:hover fieldset': {
-                                borderColor: 'pink', // Change the border color on hover
-                            },
-                            '&.Mui-focused fieldset': {
-                                borderColor: 'secondary.dark', // Change the border color when focused
-                            },
-                        },
+                        '& fieldset'            : {borderColor: tertiaryColor},
+                        '&:hover fieldset'      : {borderColor: 'white'},
+                        '&.Mui-focused fieldset': {borderColor: 'white !important'},
                     },
                 },
                 InputLabelProps: {
                     sx: {
-                        color          : 'secondary.main', // Change the label color
                         '&.Mui-focused': {
-                            color: 'secondary.dark', // Change the label color when focused
+                            color: 'white',
                         },
                     },
                 },

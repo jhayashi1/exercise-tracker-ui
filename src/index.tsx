@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {ThemeProvider} from '@emotion/react';
+import {ThemeProvider} from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import {BrowserRouter, Routes} from 'react-router-dom';
 import {routes} from './routes';
 import {theme} from './theme';
-import {Box, Container, Paper} from '@mui/material';
+import {Box, Button, Container, Paper} from '@mui/material';
 import {AuthProvider} from 'react-oidc-context';
 import {SideNav} from './components/SideNav';
 import {DRAWER_WIDTH} from './theme';
@@ -23,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <AuthProvider {...cognitoAuthConfig}>
             <CssBaseline />
             <ThemeProvider theme={theme}>
+                <CssBaseline />
                 <BrowserRouter>
                     <Paper sx={{borderRadius: 0, flex: 1, minHeight: '100vh', ml: DRAWER_WIDTH}}>
                         <Box sx={{pt: '6rem', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>

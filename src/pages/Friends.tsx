@@ -1,7 +1,7 @@
 import {useState, type FC} from 'react';
 import type {CognitoAuthProps} from '../https/types';
 import {useAuth} from 'react-oidc-context';
-import {Button, Card, Container, Grid, TextField, Typography} from '@mui/material';
+import {Button, Card, Container, Divider, Grid, TextField, Typography} from '@mui/material';
 import {useAsyncEffect} from '../helpers/use-async-effect';
 import {listFriends, removeFriend, requestFriend} from '../https/friend';
 
@@ -40,16 +40,6 @@ export const Friends: FC = () => {
                     <TextField
                         fullWidth
                         label='Add a friend'
-                        sx={{
-                            '& .MuiOutlinedInput-root': {
-                                '& fieldset'            : {borderColor: '#303030'},
-                                '&:hover fieldset'      : {borderColor: 'white'},
-                                '&.Mui-focused fieldset': {borderColor: 'white'},
-                            },
-                            '& .MuiInputLabel-root.Mui-focused': {
-                                color: 'white',
-                            },
-                        }}
                         value={addFriendField}
                         variant='outlined'
                         onChange={(e) => setAddFriendField(e.target.value)}
@@ -58,6 +48,7 @@ export const Friends: FC = () => {
                 <Grid item xs={2}>
                     <Button
                         fullWidth
+                        // disabled={!addFriendField}
                         variant='outlined'
                         onClick={handleAddFriend}
                     >

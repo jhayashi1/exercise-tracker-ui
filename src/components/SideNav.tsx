@@ -46,9 +46,8 @@ export const SideNav: FC = () => {
                     </Box>
                     {Object.keys(pages).map((page) => (
                         <Button
-                            disableRipple
                             component={Link}
-                            key= {page}
+                            key={page}
                             sx={{
                                 backgroundColor: 'transparent',
                                 display        : 'flex',
