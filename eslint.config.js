@@ -2,6 +2,7 @@ import react from 'eslint-plugin-react';
 import parser from '@typescript-eslint/parser';
 import TypeScriptESLint from '@typescript-eslint/eslint-plugin';
 import js from '@eslint/js';
+import globals from 'globals';
 
 const commonRules = {
     ...js.configs.recommended.rules,
@@ -102,16 +103,9 @@ export default [{
         },
         ecmaVersion: 12,
         globals    : {
-            browser      : true,
-            commonjs     : true,
-            es2021       : true,
-            webextensions: true,
-            console      : true,
-            __dirname    : true,
-            process      : true,
-            fetch        : true,
-            document     : true,
-            window       : true,
+            ...globals.serviceworker,
+            ...globals.browser,
+            ...globals.node,
         },
     },
     rules: {
