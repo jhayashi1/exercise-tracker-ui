@@ -60,9 +60,9 @@ export const Home: FC = () => {
             ],
     });
 
-    useEffect(() => {
+    useAsyncEffect(async () => {
         if (!auth.isLoading && !auth.isAuthenticated) {
-            auth.signinRedirect();
+            await auth.signinRedirect();
         }
     }, [auth.isLoading, auth.isAuthenticated]);
 

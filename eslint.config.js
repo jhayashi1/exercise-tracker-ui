@@ -35,10 +35,10 @@ const commonRules = {
 };
 
 const typescriptRules = {
-    ...TypeScriptESLint.configs.eslintRecommended,
-    ...TypeScriptESLint.configs.recommendedTypeChecked,
-    ...TypeScriptESLint.configs.strictTypeChecked,
-    ...TypeScriptESLint.configs.stylisticTypeChecked,
+    ...TypeScriptESLint.configs['eslint-recommended'].overrides[0].rules,
+    ...TypeScriptESLint.configs['recommended-type-checked'].rules,
+    ...TypeScriptESLint.configs['strict-type-checked'].rules,
+    ...TypeScriptESLint.configs['stylistic-type-checked'].rules,
     indent                                            : 2,
     'new-cap'                                         : [2, {capIsNew: false}],
     '@typescript-eslint/consistent-type-definitions'  : 2,
@@ -63,6 +63,7 @@ const typescriptRules = {
     '@typescript-eslint/promise-function-async'      : 2,
     'no-return-await'                                : 0,
     '@typescript-eslint/return-await'                : [2, 'always'],
+    '@typescript-eslint/no-misused-promises'         : [2, {checksVoidReturn: false}],
 };
 
 const reactRules = {

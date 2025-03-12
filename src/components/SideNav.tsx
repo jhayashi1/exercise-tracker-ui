@@ -22,7 +22,7 @@ export const SideNav: FC = () => {
                 '& .MuiDrawer-paper': {
                     width          : DRAWER_WIDTH,
                     boxSizing      : 'border-box',
-                    backgroundColor: `${SIDE_NAV_COLOR}`,
+                    backgroundColor: SIDE_NAV_COLOR,
                 },
             }}
             variant="permanent"

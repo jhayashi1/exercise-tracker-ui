@@ -92,7 +92,7 @@ export const Friends: FC = () => {
 
                                             sx={{mr: '2rem'}}
                                             variant='outlined'
-                                            onClick={async () => await handleRequestAction(guid, 'accepted')}
+                                            onClick={async () => { await handleRequestAction(guid, 'accepted'); }}
                                         >
                                             <Typography
 
@@ -108,7 +108,7 @@ export const Friends: FC = () => {
 
                                             sx={{mr: '2rem'}}
                                             variant='outlined'
-                                            onClick={async () => await handleRequestAction(guid, 'declined')}
+                                            onClick={async () => { await handleRequestAction(guid, 'declined'); }}
                                         >
                                             <Typography
 
@@ -138,7 +138,7 @@ export const Friends: FC = () => {
                         label='Add a friend'
                         value={addFriendField}
                         variant='outlined'
-                        onChange={(e) => setAddFriendField(e.target.value)}
+                        onChange={(e) => { setAddFriendField(e.target.value); }}
                     />
                 </Grid2>
                 <Grid2 size={2}>
