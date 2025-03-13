@@ -5,10 +5,12 @@ import CssBaseline from '@mui/material/CssBaseline';
 import {BrowserRouter, Routes} from 'react-router-dom';
 import {routes} from './routes';
 import {theme} from './theme';
-import {Box, Button, Container, Paper} from '@mui/material';
+import {Box, Container, Paper} from '@mui/material';
 import {AuthProvider} from 'react-oidc-context';
 import {SideNav} from './components/SideNav';
 import {DRAWER_WIDTH} from './theme';
+import {ToastProvider} from './hooks/use-toast';
+import {ErrorBoundary} from './components/ErrorBoundary';
 
 const cognitoAuthConfig = {
     authority    : 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_GF38zyZr1',
@@ -25,16 +27,20 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <BrowserRouter>
-                    <Paper sx={{borderRadius: 0, flex: 1, minHeight: '100vh', ml: DRAWER_WIDTH}}>
-                        <Box sx={{pt: '6rem', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
-                            <SideNav />
-                            <Container>
-                                <Routes>
-                                    {routes}
-                                </Routes>
-                            </Container>
-                        </Box>
-                    </Paper>
+                    <ToastProvider>
+                        <ErrorBoundary>
+                            <Paper sx={{borderRadius: 0, flex: 1, minHeight: '100vh', ml: DRAWER_WIDTH}}>
+                                <Box sx={{pt: '6rem', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
+                                    <SideNav />
+                                    <Container>
+                                        <Routes>
+                                            {routes}
+                                        </Routes>
+                                    </Container>
+                                </Box>
+                            </Paper>
+                        </ErrorBoundary>
+                    </ToastProvider>
                 </BrowserRouter>
             </ThemeProvider>
         </AuthProvider>

@@ -4,14 +4,16 @@ import {useAuth} from 'react-oidc-context';
 import {Button, Card, Container, Divider, Grid2, TextField, Typography} from '@mui/material';
 import {useAsyncEffect} from '../helpers/use-async-effect';
 import {friendRequestAction, listFriendRequests, listFriends, removeFriend, requestFriend} from '../https/friend';
+import {ToastSeverity, useToast} from '../hooks/use-toast';
 
 export const Friends: FC = () => {
-    const auth = useAuth() as CognitoAuthProps;
+    const auth = useAuth();
     const token = auth.user?.access_token ?? '';
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [pendingRequests, setPendingRequests] = useState<FriendRequestMetadata[]>([]);
     const [friends, setFriends] = useState<string[]>([]);
     const [addFriendField, setAddFriendField] = useState<string>('');
+    const {enqueueToast} = useToast();
 
     useAsyncEffect(async () => {
         if (!isLoading) {
@@ -37,16 +39,23 @@ export const Friends: FC = () => {
     const handleAddFriend = async (): Promise<void> => {
         if (addFriendField.trim()) {
             const response = await requestFriend(addFriendField, token);
+
             if (response.ok) {
+                enqueueToast(`Sent request to ${addFriendField}`, ToastSeverity.SUCCESS);
                 setAddFriendField('');
-                // TODO: toast for adding friend
             }
         }
     };
 
-    const handleRequestAction = async (guid: string, action: FriendRequestAction): Promise<void> => {
-        await friendRequestAction(guid, action, token);
-        // TODO: toast for action and reload
+    const handleRequestAction = async (guid: string, action: FriendRequestAction, username: string): Promise<void> => {
+        const response = await friendRequestAction(guid, action, token);
+
+        if (response.ok) {
+            enqueueToast(`Successfully ${String(action)} ${username}'s request`, ToastSeverity.SUCCESS);
+
+            const newPendingRequests = pendingRequests.filter((request) => request.guid !== guid);
+            setPendingRequests(newPendingRequests);
+        }
     };
 
     return (
@@ -64,7 +73,7 @@ export const Friends: FC = () => {
                             <Card
                                 sx={{
                                     height        : '100%',
-                                    my            : '2rem',
+                                    mt            : '1rem',
                                     textDecoration: 'none',
                                     color         : 'inherit',
                                     display       : 'block',
@@ -89,10 +98,9 @@ export const Friends: FC = () => {
                                     </Grid2>
                                     <Grid2 size={1}>
                                         <Button
-
                                             sx={{mr: '2rem'}}
                                             variant='outlined'
-                                            onClick={async () => { await handleRequestAction(guid, 'accepted'); }}
+                                            onClick={async () => { await handleRequestAction(guid, 'accepted', username); }}
                                         >
                                             <Typography
 
@@ -108,7 +116,7 @@ export const Friends: FC = () => {
 
                                             sx={{mr: '2rem'}}
                                             variant='outlined'
-                                            onClick={async () => { await handleRequestAction(guid, 'declined'); }}
+                                            onClick={async () => { await handleRequestAction(guid, 'declined', username); }}
                                         >
                                             <Typography
 
@@ -126,16 +134,19 @@ export const Friends: FC = () => {
                     ))}
                 </>
             )}
+            <Typography sx={{mt: '2rem'}} variant='h4'>
+                {'Add Friend'}
+            </Typography>
             <Grid2
                 container
                 alignItems='center'
                 spacing={2}
-                sx={{mt: '2rem'}}
+                sx={{mt: '1rem'}}
             >
                 <Grid2 size={10}>
                     <TextField
                         fullWidth
-                        label='Add a friend'
+                        label='Username'
                         value={addFriendField}
                         variant='outlined'
                         onChange={(e) => { setAddFriendField(e.target.value); }}
@@ -156,12 +167,15 @@ export const Friends: FC = () => {
             </Grid2>
 
             <Divider sx={{mt: '2rem'}}></Divider>
+            <Typography sx={{mt: '2rem'}} variant='h4'>
+                {'Friends'}
+            </Typography>
             {friends.map((friend) => (
                 <Card
                     key={friend}
                     sx={{
                         height        : '100%',
-                        my            : '2rem',
+                        mt            : '1rem',
                         textDecoration: 'none',
                         color         : 'inherit',
                         display       : 'block',

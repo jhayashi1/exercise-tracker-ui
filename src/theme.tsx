@@ -1,4 +1,5 @@
 import {createTheme} from '@mui/material';
+import type {ToastSeverity} from './hooks/use-toast';
 const primaryColor = '#181818';
 const secondaryColor = '#363636';
 const tertiaryColor = '#404040';
@@ -66,8 +67,9 @@ export const theme = createTheme({
             },
             styleOverrides: {
                 root: {
-                    color   : 'white',
-                    variants: [
+                    transition: 'background-color 0.1s ease-in-out, border-color 0.1s ease-in-out',
+                    color     : 'white',
+                    variants  : [
                         {
                             props: {variant: 'outlined'},
                             style: {
