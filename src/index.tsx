@@ -28,18 +28,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 <CssBaseline />
                 <BrowserRouter>
                     <ToastProvider>
-                        <ErrorBoundary>
-                            <Paper sx={{borderRadius: 0, flex: 1, minHeight: '100vh', ml: DRAWER_WIDTH}}>
-                                <Box sx={{pt: '6rem', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
-                                    <SideNav />
-                                    <Container>
-                                        <Routes>
-                                            {routes}
-                                        </Routes>
-                                    </Container>
-                                </Box>
-                            </Paper>
-                        </ErrorBoundary>
+                        <Paper sx={{borderRadius: 0, flex: 1, minHeight: '100vh', ml: DRAWER_WIDTH}}>
+                            <Box sx={{pt: '6rem', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
+                                <SideNav />
+                                <Container>
+                                    <Routes>
+                                        {routes}
+                                    </Routes>
+                                </Container>
+                            </Box>
+                        </Paper>
                     </ToastProvider>
                 </BrowserRouter>
             </ThemeProvider>
