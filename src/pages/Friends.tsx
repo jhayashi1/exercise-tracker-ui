@@ -5,9 +5,11 @@ import {Button, Card, Container, Divider, Grid2, TextField, Typography} from '@m
 import {useAsyncEffect} from '../helpers/use-async-effect';
 import {friendRequestAction, listFriendRequests, listFriends, removeFriend, requestFriend} from '../https/friend';
 import {ToastSeverity, useToast} from '../hooks/use-toast';
+import {useErrorHandling} from '../hooks/use-error-handling';
 
 export const Friends: FC = () => {
     const auth = useAuth();
+    const {handleApiCall} = useErrorHandling();
     const token = auth.user?.access_token ?? '';
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [pendingRequests, setPendingRequests] = useState<FriendRequestMetadata[]>([]);
@@ -38,9 +40,9 @@ export const Friends: FC = () => {
 
     const handleAddFriend = async (): Promise<void> => {
         if (addFriendField.trim()) {
-            const response = await requestFriend(addFriendField, token);
+            const response = await handleApiCall(async () => await requestFriend(addFriendField, token));
 
-            if (response.ok) {
+            if (response?.ok) {
                 enqueueToast(`Sent request to ${addFriendField}`, ToastSeverity.SUCCESS);
                 setAddFriendField('');
             }
@@ -48,9 +50,9 @@ export const Friends: FC = () => {
     };
 
     const handleRequestAction = async (guid: string, action: FriendRequestAction, username: string): Promise<void> => {
-        const response = await friendRequestAction(guid, action, token);
+        const response = await handleApiCall(async () => await friendRequestAction(guid, action, token));
 
-        if (response.ok) {
+        if (response?.ok) {
             enqueueToast(`Successfully ${String(action)} ${username}'s request`, ToastSeverity.SUCCESS);
 
             const newPendingRequests = pendingRequests.filter((request) => request.guid !== guid);

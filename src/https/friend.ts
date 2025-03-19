@@ -2,7 +2,7 @@ import {call} from './call';
 import {BASE_API_URL} from './constants';
 import type {FriendRemoveResp, FriendRequestAction, ListFriendRequestsResp, ListFriendsResp} from './types';
 
-export const requestFriend = async (username: string, auth: string): Promise<Response> => {
+export const requestFriend = async (username: string, auth: string): Promise<Response | undefined> => {
     const resp = await call(`${BASE_API_URL}/friend/request`,
         auth,
         {
@@ -19,7 +19,7 @@ export const requestFriend = async (username: string, auth: string): Promise<Res
     return resp;
 };
 
-export const friendRequestAction = async (guid: string, action: FriendRequestAction, auth: string): Promise<Response> => {
+export const friendRequestAction = async (guid: string, action: FriendRequestAction, auth: string): Promise<Response | undefined> => {
     const resp = await call(`${BASE_API_URL}/friend/request-action`,
         auth,
         {

@@ -38,7 +38,7 @@ const Toast: FC<ToastProps> = ({open, message, severity, onClose}) => (
 const ToastContext = createContext<ToastContextProps | undefined>(undefined);
 
 export const ToastProvider: FC<{children: ReactNode}> = ({children}) => {
-    const [toast, setToast] = useState<{open: boolean, message: string, severity: ToastSeverity}>({open: false, message: '', severity: 'success'});
+    const [toast, setToast] = useState<{open: boolean, message: string, severity: ToastSeverity}>({open: false, message: '', severity: ToastSeverity.SUCCESS});
 
     const enqueueToast = (message: string, severity: ToastSeverity): void => {
         setToast({open: true, message, severity});

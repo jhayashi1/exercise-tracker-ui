@@ -4,11 +4,10 @@ export interface CallParams {
     body?: RequestInit['body']
 }
 
-export const call = async (url: string, auth: string, p?: CallParams): Promise<Response> => {
+export const call = async (url: string, auth: string, p?: CallParams): Promise<Response | undefined> => {
     const {params = {}, headers = {}} = p ?? {};
 
     try {
-
         const response = await fetch(url,
             {
                 headers: {
@@ -20,7 +19,8 @@ export const call = async (url: string, auth: string, p?: CallParams): Promise<R
         );
 
         if (response.status > 400) {
-            throw new ApiError(response.status, response.statusText);
+            const json = await response.json() as {error: string, message: string};
+            throw new ApiError(response.status, json.message);
         }
 
         return response;
@@ -33,7 +33,7 @@ export const call = async (url: string, auth: string, p?: CallParams): Promise<R
     }
 };
 
-class ApiError extends Error {
+export class ApiError extends Error {
     name: string;
     status: number;
     statusText: string;
